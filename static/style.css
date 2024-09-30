@@ -1,0 +1,50 @@
+
+    body {
+        background-color: #f0f0f0; /* Cor de fundo cinza claro */
+        color: #333; /* Cor do texto */
+    }
+    
+header {
+    padding-top: 100%;
+    padding: 20px;
+    border-bottom: 1px solid #136eca;
+}
+
+
+
+h1 {
+    font-size: 1rem; /* Ajusta o tamanho do título */
+}
+
+p{
+    font-size: 0.4rem; /* Ajusta o tamanho do texto */
+    
+    
+  
+}
+
+.form-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-control {
+    width: 150px; /* Ajusta a largura dos inputs */
+}
+
+.form-group {
+    margin: 0 5px; /* Espaçamento horizontal entre os campos */
+}
+
+button.btn {
+    margin-left: 10px; /* Adiciona um pequeno espaço antes do botão */
+}
+
+.box-main {
+    display: flex;
+    justify-content: center; /* Centraliza os quadrados */
+    align-items: flex-start;
+    flex-wrap: wrap; /* Permite que os quadrados quebrem linha em telas menores */
+}
+
