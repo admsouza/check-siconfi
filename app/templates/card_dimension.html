@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
+<body>
 
 <div class="container text-center mt-5">
     <h1>Selecione uma Dimensão</h1>
@@ -17,7 +18,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Dimensão II</h5>
                     <p class="card-text">Clique para acessar a página da Dimensão II.</p>
-                    <a href="{{ url_for('main.dimension_ii') }}" class="btn btn-primary">Acessar Dimensão II</a>
+                    <a href="{{ url_for('dimensionii_bp.dimension_ii') }}" class="btn btn-primary">Acessar Dimensão II</a>
                 </div>
             </div>
         </div>
@@ -28,7 +29,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Dimensão III</h5>
                     <p class="card-text">Clique para acessar a página da Dimensão III.</p>
-                    <a href="{{ url_for('main.dimension_iii') }}" class="btn btn-primary">Acessar Dimensão III</a>
+                    <a href="{{ url_for('dimensioniii_bp.dimension_iii') }}" class="btn btn-primary">Acessar Dimensão III</a>
                 </div>
             </div>
         </div>
@@ -39,12 +40,16 @@
                 <div class="card-body">
                     <h5 class="card-title">Dimensão IV</h5>
                     <p class="card-text">Clique para acessar a página da Dimensão IV.</p>
-                    <a href="{{ url_for('main.dimension_iv') }}" class="btn btn-primary">Acessar Dimensão IV</a>
+                    <a href="{{ url_for('dimensioniv_bp.dimension_iv') }}" class="btn btn-primary">Acessar Dimensão IV</a>
                 </div>
             </div>
         </div>
-        <div class="container text-center mt-5">
-            <a href="{{ url_for('main.home') }}" class="btn btn-secondary">Voltar para Home</a>
-        </div>
+    </div>
+
+    <div class="container text-center mt-5">
+        <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Voltar para Home</a>
     </div>
 </div>
+
+</body>
+</html>

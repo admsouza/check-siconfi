@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for, current_app
 import os
 from .functions.entes import get_ufs_cidades
-from .functions.periodo import get_anos
+from .functions.period import get_anos
 import requests
 
 # Criação do blueprint
