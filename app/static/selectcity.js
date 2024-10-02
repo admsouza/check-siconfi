@@ -4,6 +4,9 @@ document.getElementById('uf').addEventListener('change', function() {
     enteSelect.innerHTML = '<option value="">Selecione uma cidade</option>';
     document.getElementById('id_ente').value = ''; // Limpa o input IBGE
 
+    var loadingText = document.getElementById('loading-text');
+    loadingText.classList.remove('d-none'); // Mostra o texto de carregamento
+
     if (uf) {
         // Adicionando log para depuração
         console.log('UF selecionada:', uf);
@@ -25,13 +28,16 @@ document.getElementById('uf').addEventListener('change', function() {
                     enteSelect.appendChild(option);
                 });
                 enteSelect.disabled = false; // Habilita o campo de cidades
+                loadingText.classList.add('d-none'); // Oculta o texto de carregamento
             })
             .catch(error => {
                 // Adiciona log para possíveis erros na chamada fetch
                 console.error('Erro ao buscar cidades:', error);
+                loadingText.classList.add('d-none'); // Oculta o texto de carregamento em caso de erro
             });
     } else {
         enteSelect.disabled = true;
+        loadingText.classList.add('d-none'); // Oculta o texto de carregamento se UF não for selecionada
     }
 });
 
