@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, current_app
+from flask import Blueprint, render_template, request, jsonify, redirect, url_for, current_app
 import os
 from .functions.entes import get_ufs_cidades
 from .functions.periodo import get_anos_meses
@@ -15,6 +15,25 @@ def home():
     anos, meses = get_anos_meses()
     
     return render_template('home.html', ufs=ufs, anos=anos, meses=meses, cidades=cidades)
+
+# Rota que recebe os parâmetros do formulário e redireciona para a página de dimensões
+@main.route('/enviar_parans', methods=['POST'])
+def enviar_parans():
+    # Captura os parâmetros enviados pelo formulário
+    id_ente = request.form['id_ente']
+    an_referencia = request.form['an_referencia']
+    me_referencia = request.form['me_referencia']
+
+    # Você pode adicionar a lógica para processar os dados aqui, se necessário
+    
+    # Redirecionar para a página de dimensões após enviar os parâmetros
+    return redirect(url_for('main.main_dimensoes'))
+
+# Rota para renderizar a página main_dimensoes
+@main.route('/main_dimensoes')
+def main_dimensoes():
+    # Renderizar o template main_dimensoes.html
+    return render_template('main_dimensoes.html')
 
 # Rota para Dimensão II
 @main.route('/dimensao_ii')
@@ -33,28 +52,6 @@ def dimensao_iii():
 @main.route('/dimensao_iv')
 def dimensao_iv():
     return render_template('dimensao_iv.html')
-
-# Rota que recebe os parâmetros do formulário e chama as APIs
-@main.route('/enviar_parans', methods=['POST'])
-def enviar_parans():
-    # Captura os parâmetros enviados pelo formulário
-    id_ente = request.form['id_ente']
-    an_referencia = request.form['an_referencia']
-    me_referencia = request.form['me_referencia']
-
-    # Obter novamente os dados de ufs, cidades, anos e meses para exibir no template
-    ufs, cidades = get_ufs_cidades()
-    anos, meses = get_anos_meses()  # Obtenha anos e meses novamente
-
-    # Renderizar a página novamente com os novos valores
-    return render_template('home.html',                   
-                           ufs=ufs, 
-                           cidades=cidades,
-                           anos=anos,        # Passar anos para o template
-                           meses=meses,      # Passar meses para o template
-                           me_referencia='',  # Limpar o campo de mês
-                           an_referencia='',  # Limpar o campo de exercício
-                           id_ente='')       # Limpar o campo de id_ente
 
 # Rota que retorna as cidades baseadas na UF
 @main.route('/get_cidades/<uf>', methods=['GET'])

@@ -8,7 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-    <form action="/enviar_parans" method="POST" class="form-inline justify-content-center mt-5 padding-top pt-5">
+    <form action="{{ url_for('main.enviar_parans') }}" method="POST" class="form-inline justify-content-center mt-5 padding-top pt-5">
         <div class="form-group mx-2 ">
             <label for="an_referencia" class="sr-only">Exercício</label>
             <select id="an_referencia" name="an_referencia" class="form-control form-control-sm" required>
