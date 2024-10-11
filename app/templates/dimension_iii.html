@@ -9,10 +9,25 @@
 </head>
 <body class="bg-light">
     <div class="container text-center mt-5">
-        <h1>Dimensão III</h1>
-        <p>Conteúdo da página Dimensão III</p>
-        <a href="{{ url_for('card_dimension_bp.card_dimension') }}" class="btn btn-secondary">Voltar para Dimensões</a>
-        <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Voltar para Home</a>
+        <h2>Resultado da Análise da Dimensão III</h2>
+        
+        <!-- Exibe o resultado se disponível -->
+        {% if resultado is not none %}
+            <h3>Resultado: {{ resultado }}</h3>
+            <div class="alert alert-success" role="alert">
+                O resultado foi calculado com sucesso!
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                Nenhum resultado disponível. Por favor, verifique os parâmetros ou tente novamente.
+            </div>
+        {% endif %}
+        
+        <!-- Botões para voltar -->
+        <div class="mt-4">
+            <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary">Voltar para Dimensões</a>
+            <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Voltar para Home</a>
+        </div>
     </div>
 </body>
 </html>

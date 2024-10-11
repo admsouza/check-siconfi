@@ -8,47 +8,60 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
-    <form action="{{ url_for('home_bp.enviar_parans') }}" method="POST" class="form-container mt-5">
-        <div class="form-group mt-3">
-            <label for="an_referencia">Exercício:</label>
-            <select id="an_referencia" name="an_referencia" class="form-control form-control-sm" required>
-                <option value="">Selecione</option>
-                {% for ano in anos %}
-                    <option value="{{ ano }}">{{ ano }}</option>
+    <div class="container mt-4">
+        <!-- Exibir mensagens flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" role="alert">
+                        {{ message }}
+                    </div>
                 {% endfor %}
-            </select>
-        </div>
-        
-        <div class="form-group mt-4">
-            <label for="uf">UF:</label>
-            <select class="form-control form-control-sm" id="uf" name="uf" required>
-                <option value="">Selecione</option>
-                {% for uf in ufs %}
-                    <option value="{{ uf }}">{{ uf }}</option>
-                {% endfor %}
-            </select>
-        </div>
+            {% endif %}
+        {% endwith %}
 
-        <div class="form-group position-relative mt-4">
-            <label for="ente">Cidade:</label>
-            <div class="input-group">
-                <select class="form-control form-control-sm" id="ente" name="ente" disabled required>
-                    <option value="">Cidade</option>
+        <!-- Formulário de seleção de parâmetros -->
+        <form action="{{ url_for('home_bp.enviar_parans') }}" method="POST" class="form-container mt-5">
+            <div class="form-group mt-3">
+                <label for="an_referencia">Exercício:</label>
+                <select id="an_referencia" name="an_referencia" class="form-control form-control-sm" required>
+                    <option value="">Selecione</option>
+                    {% for ano in anos %}
+                        <option value="{{ ano }}">{{ ano }}</option>
+                    {% endfor %}
                 </select>
-                <span id="loading-text" class="text-primary d-none position-absolute" style="top: 50%; left: 85%; transform: translate(-50%, -50%);">
-                    Carregando...
-                </span>
             </div>
-        </div>
+            
+            <div class="form-group mt-4">
+                <label for="uf">UF:</label>
+                <select class="form-control form-control-sm" id="uf" name="uf" required>
+                    <option value="">Selecione</option>
+                    {% for uf in ufs %}
+                        <option value="{{ uf }}">{{ uf }}</option>
+                    {% endfor %}
+                </select>
+            </div>
 
-        <div class="form-group d-none mt-4">
-            <label for="id_ente" class="sr-only">IBGE</label>  
-            <input type="text" id="id_ente" name="id_ente" class="form-control form-control-sm" placeholder="IBGE" size="5" required />
-        </div>
-        
-        <button type="submit" class="btn btn-primary btn-sm btn-block mt-5 btn-custom-height">Entrar</button>
-       
-    </form>
+            <div class="form-group position-relative mt-4">
+                <label for="ente">Cidade:</label>
+                <div class="input-group">
+                    <select class="form-control form-control-sm" id="ente" name="ente" disabled required>
+                        <option value="">Cidade</option>
+                    </select>
+                    <span id="loading-text" class="text-primary d-none position-absolute" style="top: 50%; left: 85%; transform: translate(-50%, -50%);">
+                        Carregando...
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group d-none mt-4">
+                <label for="id_ente" class="sr-only">IBGE</label>  
+                <input type="text" id="id_ente" name="id_ente" class="form-control form-control-sm" placeholder="IBGE" size="5" required />
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-sm btn-block mt-5 btn-custom-height">Entrar</button>
+        </form>
+    </div>
     
     <script src="{{ url_for('static', filename='selectcity.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

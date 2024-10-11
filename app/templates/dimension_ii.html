@@ -1,18 +1,71 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dimensão II</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body class="bg-light">
-    <div class="container text-center mt-5">
-        <h1>Dimensão II</h1>
-        <p>Conteúdo da página Dimensão II</p>
-        <a href="{{ url_for('card_dimension_bp.card_dimension') }}" class="btn btn-secondary">Voltar para Dimensões</a>
-        <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Voltar para Home</a>
-    </div>
+    <div class="container mt-5">
+        <!-- Botões para voltar, centralizados -->
+        <div class="text-center mb-4">
+            <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
+            <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
+        </div>
+
+        <!-- Cartões para exibir o status, lado a lado -->
+        <div class="row justify-content-center">
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body">
+                        <h5>D2_00001</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg">
+                        <h5>D2_00002</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg">
+                        <h5>D2_00003</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg">
+                        <h5>D2_00004</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg">
+                        <h5>D2_00005</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-2 mb-2">
+                <div class="total-card card mt-5">
+                    <div class="card-body text-center bg-success text-white rounded-lg">
+                        <h5>D2_00006</h5>
+                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+                    </div>
+                </div>
+            </div>
 </body>
 </html>

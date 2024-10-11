@@ -1,3 +1,4 @@
+import logging
 from flask import Flask
 from app.routes.home import home_bp
 from app.routes.card_dimension import card_dimension_bp
@@ -7,6 +8,12 @@ from app.routes.dimensioniv import dimensioniv_bp
 
 def create_app():
     app = Flask(__name__)
+
+    # Defina uma chave secreta para a aplicação
+    app.secret_key = 'ajsdh7sd9as0df8asd8&@#asdfa789sdfas'
+
+    # Configuração de logging para imprimir todas as mensagens no terminal
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     # Registrar os blueprints
     app.register_blueprint(home_bp)

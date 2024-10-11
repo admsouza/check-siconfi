@@ -39,3 +39,7 @@ body {
     font-size: 0.9em; /* Tamanho da fonte */
     left: 90%; /* Ajuste a posição para melhor centralização */
 }
+
+.custom-card-body {
+    padding: 10px;
+}
