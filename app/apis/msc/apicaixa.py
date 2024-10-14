@@ -1,8 +1,9 @@
 import requests
 import pandas as pd
 import logging
+from ...apis.urls import API_MSC_PAT
 
-API_URL = 'https://apidatalake.tesouro.gov.br/ords/siconfi/tt/msc_patrimonial'
+API_URL = API_MSC_PAT
 
 def get_api_caixa(id_ente, an_referencia):
     # Montando a URL completa com os parâmetros

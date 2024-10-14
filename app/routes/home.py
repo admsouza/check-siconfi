@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 import logging
 import requests  # Para fazer a requisição externa à API
-from ..apis.msc.apicaixa import get_api_caixa, dado_final  # Importa as funções do apicaixa.py
-from ..functions.entes import get_ufs_cidades
-from ..functions.period import get_anos
+from ..apis.msc.apicaixa import get_api_caixa
+from ..utils.entes import get_ufs_cidades
+from ..utils.period import get_anos
 
 # Criação do blueprint para o home
 home_bp = Blueprint('home_bp', __name__)

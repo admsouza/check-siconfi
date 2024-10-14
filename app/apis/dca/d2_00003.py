@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.INFO)
 
 API_URL = API_DCA
 
-def vpa_fundeb_principal(id_ente, an_exercicio):  
-    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-HI"
+def deducoes_fundeb(id_ente, an_exercicio):  
+    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-C"
 
     logging.info(f"Chamando API com a URL: {url}")
     response = requests.get(url)
@@ -19,20 +19,25 @@ def vpa_fundeb_principal(id_ente, an_exercicio):
         return process_data(data)
     else:
         logging.error(f"Erro ao acessar a API: {response.status_code}")
-        return None
+        return "Dado Divergente"  # Retorna "Dado Divergente" se a API falhar
 
 def process_data(data):
     if not data:
         logging.warning("Nenhum dado recebido.")
-        return None
+        return "Dado Divergente"  # Retorna "Dado Divergente" se não houver dados
 
     # Converte os dados para um DataFrame
     df = pd.DataFrame(data)
 
-    # Filtra as linhas onde a coluna 'conta' contém '4.5.2.2.4'
-    filtered_df = df[df['conta'].str.contains('4.5.2.2.4', na=False)]
+    # Verifica se a coluna 'conta' existe no DataFrame
+    if 'coluna' not in df.columns:
+        logging.warning("Coluna 'conta' não encontrada nos dados.")
+        return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
 
- # Verifica se existem dados filtrados
+    # Filtra as linhas onde a coluna 'conta' contém 'Deduções - FUNDEB'
+    filtered_df = df[df['coluna'].str.contains('Deduções - FUNDEB', na=False)]
+
+    # Verifica se existem dados filtrados
     if filtered_df.empty:
         logging.warning("Nenhum dado consistente encontrado após filtragem.")
         return "Dado Divergente"
@@ -42,7 +47,7 @@ def process_data(data):
         logging.warning("Coluna 'valor' não encontrada nos dados filtrados.")
         return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
 
-    # Verifica se o valor é maior que zero
+    # Verifica se algum valor é maior que zero
     if (filtered_df['valor'] > 0).any():
         return "Dado Consistente"
     else:

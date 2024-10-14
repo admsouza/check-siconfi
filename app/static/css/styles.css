@@ -1,5 +1,5 @@
 body {
-    padding-top: 8%;
+    padding-top: -10%;
 }
 
 .form-group {
@@ -41,5 +41,73 @@ body {
 }
 
 .custom-card-body {
-    padding: 10px;
+   
+        padding-top: 0.25rem;  /* Ajuste conforme necessário */
+        padding-bottom: 0.25rem;  /* Ajuste conforme necessário */
+    }
+    
+
+
+/* styles.css */
+.bg-soft-orange {
+    background-color: rgba(255, 165, 0, 0.5); /* Laranja suave com 50% de transparência */
+    color: #333; /* Texto escuro para contraste */
+}
+
+/* Estilo base para os cartões */
+.total-card {
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco com 80% de transparência */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Bordas internas suaves */
+    border-radius: 12px; /* Arredonda os cantos */
+    border: 1px solid rgba(0, 0, 0, 0.1); /* Borda sutil */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animação suave */
+}
+
+/* Cor e transparência para cartões com status "Dado Divergente" */
+.bg-soft-orange {
+    background-color: rgba(255, 165, 0, 0.5); /* Laranja suave e transparente */
+    color: #333; /* Texto escuro para contraste */
+}
+
+/* Efeito de hover para os cartões */
+.total-card:hover {
+    transform: scale(1.05); /* Leve aumento no tamanho */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* Realça as bordas internas no hover */
+}
+
+/* Ajusta o texto dentro dos cards */
+.total-card .card-body {
+    padding: 15px; /* Reduz o padding interno */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Garante que o conteúdo ocupe toda a altura */
+}
+.row-gap-custom {
+    row-gap: 20px; /* Espaçamento vertical entre linhas */
+    column-gap: 15px; /* Espaçamento horizontal entre colunas */
+}
+
+.card {
+    position: relative;
+    overflow: hidden; /* Garante que o conteúdo não vaze fora do card */
+    background-color: rgba(255, 255, 255, 0.8); /* Transparência suave */
+    border-radius: 15px; /* Borda arredondada */
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1); /* Borda interna */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animação suave */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Aumenta o card ao passar o mouse */
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.2); /* Intensifica a borda interna no hover */
+}
+
+.custom-card-body {
+    padding: 15px; /* Ajusta o padding interno */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Garante que o conteúdo ocupe toda a altura */
 }

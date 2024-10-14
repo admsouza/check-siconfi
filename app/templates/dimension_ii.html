@@ -7,65 +7,71 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
 </head>
-<body class="bg-light">
-    <div class="container mt-5">
+<body class="bg-light mt-5 ">
+    <div class="container mt-4 ">
         <!-- Botões para voltar, centralizados -->
-        <div class="text-center mb-4">
+        <div class="text-center mb-5">
             <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
             <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
         </div>
 
         <!-- Cartões para exibir o status, lado a lado -->
-        <div class="row justify-content-center">
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body">
-                        <h5>D2_00001</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+        <div class="row justify-content-center row-gap-custom">
+            <div class="col-mb-2"> <!-- Ajuste de mb para 1 -->
+                <div class="total-card card" data-status="{{ status }}" data-toggle="tooltip" title="Verifica se foi informado, no Anexo I-HI da DCA, valor da variação patrimonial aumentativa com o FUNDEB.">
+                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body py-3"> 
+                        <h5 class="mb-1 font-weight-bold">D2_00001</h5> <!-- Remove a margem inferior para controlar via padding -->
+                        <p class="mb-0">{{ d2_01 }}</p> <!-- Remove a margem inferior para controlar via padding -->
                     </div>
                 </div>
             </div>
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg">
-                        <h5>D2_00002</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg">
-                        <h5>D2_00003</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg">
-                        <h5>D2_00004</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+            <div class="col-md- mb-2"> <!-- Ajuste de mb para 1 -->
+                <div class="total-card card" data-status="{{ status }}" data-toggle="tooltip" title="Verifica se foi informado, no Anexo I-HI da DCA, valor da variação patrimonial diminutiva com o FUNDEB.">
+                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body py-3"> 
+                        <h5 class="mb-1 font-weight-bold">D2_00002</h5> <!-- Remove a margem inferior para controlar via padding -->
+                        <p class="mb-0">{{ d2_02 }}</p> <!-- Remove a margem inferior para controlar via padding -->
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg">
-                        <h5>D2_00005</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
+            <div class="col-md- mb-2"> <!-- Ajuste de mb para 1 -->
+                <div class="total-card card" data-status="{{ status }}" data-toggle="tooltip" title="Informar Finalidade">
+                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body py-3"> 
+                        <h5 class="mb-1 font-weight-bold">D2_00003</h5> <!-- Remove a margem inferior para controlar via padding -->
+                        <p class="mb-0">{{ d2_03 }}</p> <!-- Remove a margem inferior para controlar via padding -->
                     </div>
                 </div>
             </div>
+            <div class="col-md- mb-2"> <!-- Ajuste de mb para 1 -->
+                <div class="total-card card" data-status="{{ status }}" data-toggle="tooltip" title="Informar Finalidade">
+                    <div class="card-body text-center bg-success text-white rounded-lg custom-card-body py-3"> 
+                        <h5 class="mb-1 font-weight-bold">D2_00004</h5> <!-- Remove a margem inferior para controlar via padding -->
+                        <p class="mb-0">{{ d2_04 }}</p> <!-- Remove a margem inferior para controlar via padding -->
+                    </div>
+                </div>
+            </div>
+           
+            
 
-            <div class="col-md-2 mb-2">
-                <div class="total-card card mt-5">
-                    <div class="card-body text-center bg-success text-white rounded-lg">
-                        <h5>D2_00006</h5>
-                        <p>{{ status }}</p>  <!-- Exibindo apenas o status -->
-                    </div>
+            <div class="container mt-5">
+                <!-- Botões para voltar, centralizados -->
+                <div class="text-center mb-4">
+                    <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
+                    <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
                 </div>
-            </div>
+      
+            <script src="{{ url_for('static', filename='colorChanger.js') }}"></script>
+            <script>
+                // Chame a função para alterar a cor com base no status de cada cartão
+                document.querySelectorAll('.total-card').forEach(card => {
+                    const status = card.getAttribute('data-status');
+                    changeColorByStatus(card, status);
+                });
+            </script>
+            <script>
+                $(function () {
+                    $('[data-toggle="tooltip"]').tooltip(); // Ativa os tooltips
+                });
+            </script>
 </body>
 </html>
