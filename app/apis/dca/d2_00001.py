@@ -24,7 +24,7 @@ def vpa_fundeb_principal(id_ente, an_exercicio):
 def process_data(data):
     if not data:
         logging.warning("Nenhum dado recebido.")
-        return None
+        return "Dado Divergente"
 
     # Converte os dados para um DataFrame
     df = pd.DataFrame(data)
