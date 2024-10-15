@@ -1,4 +1,3 @@
-import logging
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from ..utils.format_currency import format_currency  # Importando a função de formatação de moeda
 from ..apis.msc.apicaixa import get_api_caixa  # Importando a função para obter dados da API

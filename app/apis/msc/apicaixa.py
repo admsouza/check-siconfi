@@ -1,6 +1,5 @@
 import requests
 import pandas as pd
-import logging
 from ...apis.urls import API_MSC_PAT
 
 API_URL = API_MSC_PAT
@@ -15,12 +14,10 @@ def get_api_caixa(id_ente, an_referencia):
         data = response.json().get('items', [])
         return process_data(data)
     else:
-        logging.error(f"Erro ao acessar a API: {response.status_code}")
         return None
 
 def process_data(data):
     if not data:
-        logging.warning("Nenhum dado recebido.")
         return None
 
     # Converte os dados para um DataFrame
@@ -31,7 +28,6 @@ def process_data(data):
     missing_columns = [col for col in required_columns if col not in df.columns]
 
     if missing_columns:
-        logging.error(f"As seguintes colunas estão ausentes: {missing_columns}")
         return None
 
     # Limpar e preparar os dados
@@ -58,8 +54,6 @@ def process_data(data):
 
     # Subtrair o total de C do total de D
     resultado = total_D - total_C
-
-    logging.info(f"Resultado calculado: {resultado}")  # Logando o resultado
     return resultado
 
 # Verificar se o valor do caixa é maior que zero
