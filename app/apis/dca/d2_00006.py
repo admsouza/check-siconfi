@@ -1,10 +1,9 @@
 import requests
 import pandas as pd
-from ...apis.urls import API_DCA  # Verifique se o caminho está correto
-
+from ...apis.urls import API_DCA
 API_URL = API_DCA
 
-def desp_patronal_empenhada(id_ente, an_exercicio):
+def desp_pessoal_empenhada(id_ente, an_exercicio):
     url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-D"
     response = requests.get(url)
     
@@ -28,24 +27,26 @@ def process_data(data):
     # Filtra apenas as linhas onde 'coluna' contém exatamente 'Despesas Empenhadas'
     df_coluna = df[df['coluna'].str.strip() == 'Despesas Empenhadas']
 
-    # Verifica se há dados após a filtragem
     if df_coluna.empty:
         return "Dado Divergente"
 
-    # Filtra as linhas onde a coluna 'conta' contém exatamente '13'
-    filtered_df = df_coluna[df_coluna['conta'].astype(str).str.contains(r'\b13\b', na=False)]
+    # Filtra linhas onde 'conta' contém os termos desejados
+    contas_filtradas = [
+        r'\bContratação por Tempo Determinado\b',
+        r'\bVencimentos e Vantagens Fixas - Pessoal Civil\b'
+    ]
+    filtro_conta = df_coluna['conta'].str.contains('|'.join(contas_filtradas), case=False, na=False)
+    filtered_df = df_coluna[filtro_conta]
 
-    # Verifica se há dados após a filtragem por '13'
     if filtered_df.empty:
         return "Dado Divergente"
 
-    # Verifica se a coluna 'valor' existe no DataFrame filtrado
-    if 'valor' not in filtered_df.columns:
+    # Verifica se a coluna 'valor' existe e é numérica
+    if 'valor' not in filtered_df.columns or not pd.api.types.is_numeric_dtype(filtered_df['valor']):
         return "Dado Divergente"
 
-    # Verifica se algum valor é maior que zero
+    # Verifica o valor é maior que zero
     if (filtered_df['valor'] > 0).any():
         return "Dado Consistente"
     else:
         return "Dado Divergente"
-

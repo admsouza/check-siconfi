@@ -36,7 +36,7 @@ def process_data(data):
     if 'valor' not in filtered_df.columns:
         return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
 
-    # Verifica se algum valor é maior que zero
+    # Verifica se  valor é maior que zero
     if (filtered_df['valor'] > 0).any():
         return "Dado Consistente"
     else:
