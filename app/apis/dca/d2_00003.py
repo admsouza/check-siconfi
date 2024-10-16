@@ -1,26 +1,7 @@
-import requests
-import pandas as pd
-from ...apis.urls import API_DCA
-
-
-API_URL = API_DCA
-
-def deducoes_fundeb(id_ente, an_exercicio):  
-    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-C"
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json().get('items', [])
-        return process_data(data)
-    else:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se a API falhar
-
-def process_data(data):
-    if not data:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se não houver dados
-
-    # Converte os dados para um DataFrame
-    df = pd.DataFrame(data)
+def d2_3_deducoes_fundeb(df):  
+   
+    if df.empty:
+        return "Dado Divergente"
 
     # Verifica se a coluna 'conta' existe no DataFrame
     if 'coluna' not in df.columns:

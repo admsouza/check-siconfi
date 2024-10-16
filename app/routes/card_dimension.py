@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask import Blueprint, render_template
 
 # Criação do blueprint para card_dimension
 card_dimension_bp = Blueprint('card_dimension_bp', __name__)
