@@ -11,12 +11,13 @@
     <div class="container mt-4 ">
         <!-- Botões para voltar, centralizados -->
         <div class="text-center mb-5">
+            <h3 class="font-weight-bold">Voltar</h3> <b>
             <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
             <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
         </div>
 
         <!-- Cartões para exibir o status, lado a lado -->
-        <div class="row justify-content-center row-gap-custom">
+        <div class="row justify-content-center row-gap-custom custom-card-container">
             <div class="col-mb-2"> <!-- Ajuste de mb para 1 -->
                 <div class="total-card card" data-status="{{ status }}" data-toggle="tooltip" title="Verifica se foi informado, no Anexo I-HI da DCA, valor da variação patrimonial aumentativa com o FUNDEB.">
                     <div class="card-body text-center bg-success text-white rounded-lg custom-card-body py-3"> 
@@ -322,6 +323,7 @@
             <div class="container mt-5">
                 <!-- Botões para voltar, centralizados -->
                 <div class="text-center mb-4">
+                    <h3 class="font-weight-bold">Voltar</h3> <b>
                     <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
                     <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
                 </div>

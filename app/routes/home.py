@@ -11,8 +11,15 @@ home_bp = Blueprint('home_bp', __name__)
 def home():
     """
     Rota principal que carrega a página inicial.
-    Obtém as UFs, cidades e anos para exibir no template.
+    Verifica se a API de entes está disponível antes de carregar a página.
     """
+    response = requests.get('https://apidatalake.tesouro.gov.br/ords/siconfi/tt/entes')
+    
+    # Verifica se a resposta da API foi bem-sucedida
+    if response.status_code != 200:
+        flash("Base de Dados Indisponível", "danger")
+        return render_template('home.html', ufs=[], anos=[], cidades=[])
+
     ufs, cidades = get_ufs_cidades()
     anos = get_anos()
     return render_template('home.html', ufs=ufs, anos=anos, cidades=cidades)
@@ -32,7 +39,6 @@ def enviar_parans():
     if resultado is None:
         flash("Resultado não encontrado. Por favor, tente novamente com outros parâmetros.", "warning")
         return redirect(url_for('home_bp.home'))
-
 
     return redirect(url_for('card_dimension_bp.card_dimension', id_ente=id_ente, an_referencia=an_referencia))
 
