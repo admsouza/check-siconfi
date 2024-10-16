@@ -1,30 +1,23 @@
-import requests
-import pandas as pd
-from ...apis.urls import API_DCA
-
-API_URL = API_DCA
+from .dca_anexo_i_hi import get_dca_i_hi
 
 def vpa_fundeb_principal(id_ente, an_exercicio):  
-    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-HI"
-    response = requests.get(url)
+    """
+    Chama os dados da API e aplica o filtro específico para VPA.
+    """
+    df = get_dca_i_hi(id_ente, an_exercicio)  # Chama a função do módulo
+    
+    # Processa os dados diretamente dentro da função
+    if df.empty:
+        return "Dado Divergente"  # Retorna "Dado Divergente" se o DataFrame estiver vazio
 
-    if response.status_code == 200:
-        data = response.json().get('items', [])
-        return process_data(data)
-    else:
-        return None
+    # Verifica se a coluna 'conta' existe no DataFrame
+    if 'conta' not in df.columns:
+        return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
 
-def process_data(data):
-    if not data:
-        return "Dado Divergente"
-
-    # Converte os dados para um DataFrame
-    df = pd.DataFrame(data)
-
-    # Filtra as linhas onde a coluna 'conta' contém '4.5.2.2.4'
+    # Filtra as linhas onde a coluna 'conta' contém o filtro específico
     filtered_df = df[df['conta'].str.contains('4.5.2.2.4', na=False)]
 
- # Verifica se existem dados filtrados
+    # Verifica se existem dados filtrados
     if filtered_df.empty:
         return "Dado Divergente"
 
