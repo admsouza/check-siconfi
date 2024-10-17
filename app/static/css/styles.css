@@ -1,6 +1,12 @@
 body {
     padding-top: -10%; /* Corrigido o valor negativo */
 }
+.cidade{
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    
+}
 
 .form-group {
     margin-bottom: 20px; /* Ajuste do espaçamento entre os grupos de formulário */

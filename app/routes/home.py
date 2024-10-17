@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, jsonify, flash
 import requests  # Para fazer a requisição externa à API
-from ..apis.msc.apicaixa import get_api_caixa
 from ..utils.entes import get_ufs_cidades
 from ..utils.period import get_anos
 
@@ -28,16 +27,10 @@ def home():
 def enviar_parans():
     id_ente = request.form.get('id_ente')
     an_referencia = request.form.get('an_referencia')
+    # nome_cidade = request.form.get('nome_cidade')  # Captura o nome da cidade
 
     if not id_ente or not an_referencia:
         flash("Por favor, forneça todos os parâmetros necessários.", "warning")
-        return redirect(url_for('home_bp.home'))
-
-    # Chamando a API para obter dados
-    resultado = get_api_caixa(id_ente, an_referencia)  # Obtendo o resultado da API
-
-    if resultado is None:
-        flash("Resultado não encontrado. Por favor, tente novamente com outros parâmetros.", "warning")
         return redirect(url_for('home_bp.home'))
 
     return redirect(url_for('card_dimension_bp.card_dimension', id_ente=id_ente, an_referencia=an_referencia))

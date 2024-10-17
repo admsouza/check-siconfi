@@ -9,9 +9,13 @@
 </head>
 <body class="bg-light mt-5 ">
     <div class="container mt-4 ">
+        <div class="cidade">
+            <h3 class=" font-weight-bold " id="resultado">Carregando...</h3>
+        </div>
+      
         <!-- Botões para voltar, centralizados -->
         <div class="text-center mb-5">
-            <h3 class="font-weight-bold">Voltar</h3> <b>
+            <h5 class="font-weight-bold">Voltar</h5> <b>
             <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
             <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
         </div>
@@ -323,12 +327,13 @@
             <div class="container mt-5">
                 <!-- Botões para voltar, centralizados -->
                 <div class="text-center mb-4">
-                    <h3 class="font-weight-bold">Voltar</h3> <b>
+                    <h5 class="font-weight-bold">Voltar</h5> <b>
                     <a href="{{ url_for('card_dimension_bp.card_dimension', id_ente=request.args.get('id_ente'), an_referencia=request.args.get('an_referencia')) }}" class="btn btn-secondary mr-2">Dimensões</a>
                     <a href="{{ url_for('home_bp.home') }}" class="btn btn-secondary">Home</a>
                 </div>
       
             <script src="{{ url_for('static', filename='js/colorChanger.js') }}"></script>
+            <script src="{{ url_for('static', filename='js/namecity.js') }}"></script>
             <script>
                 // Chame a função para alterar a cor com base no status de cada cartão
                 document.querySelectorAll('.total-card').forEach(card => {
