@@ -1,27 +1,10 @@
-import requests
 import pandas as pd
-from ...apis.urls import API_DCA
 
+# DCA-Anexo I-C
 
-
-API_URL = API_DCA
-
-def receitas_fundeb(id_ente, an_exercicio):  
-    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-C"
-    response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json().get('items', [])
-        return process_data(data)
-    else:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se a API falhar
-
-def process_data(data):
-    if not data:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se não houver dados
-
-    # Converte os dados para um DataFrame
-    df = pd.DataFrame(data)
+def d2_4_receitas_fundeb(df):  
+    if df.empty:
+            return "Dado Divergente"
 
     # Verifica se a coluna 'conta' existe no DataFrame
     if 'conta' not in df.columns:
@@ -35,8 +18,8 @@ def process_data(data):
         return "Dado Divergente"
 
     # Verifica se a coluna 'valor' existe
-    if 'valor' not in filtered_df.columns:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
+    if not pd.api.types.is_numeric_dtype(filtered_df['valor']):
+        return "Dado Divergente"
 
     # Verifica se o valor é maior que zero
     if (filtered_df['valor'] > 0).any():

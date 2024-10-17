@@ -1,3 +1,7 @@
+import pandas as pd
+
+# DCA-Anexo I-HI
+
 def d2_3_deducoes_fundeb(df):  
    
     if df.empty:
@@ -15,8 +19,8 @@ def d2_3_deducoes_fundeb(df):
         return "Dado Divergente"
 
     # Verifica se a coluna 'valor' existe
-    if 'valor' not in filtered_df.columns:
-        return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
+    if not pd.api.types.is_numeric_dtype(filtered_df['valor']):
+        return "Dado Divergente"
 
     # Verifica se o valor é maior que zero
     if (filtered_df['valor'] > 0).any():

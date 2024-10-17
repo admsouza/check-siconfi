@@ -1,3 +1,7 @@
+import pandas as pd
+
+# DCA-Anexo I-HI
+
 def d2_2_vpd_fundeb_principal(df):  
     """
     Processa o DataFrame filtrando os dados específicos para VPD.
@@ -13,8 +17,9 @@ def d2_2_vpd_fundeb_principal(df):
     if filtered_df.empty:
         return "Dado Divergente"
 
-    if 'valor' not in filtered_df.columns:
+    if not pd.api.types.is_numeric_dtype(filtered_df['valor']):
         return "Dado Divergente"
+
 
     if (filtered_df['valor'] > 0).any():
         return "Dado Consistente"

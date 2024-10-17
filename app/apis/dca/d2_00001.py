@@ -1,3 +1,7 @@
+import pandas as pd
+
+# DCA-Anexo I-HI
+
 def d2_1_vpa_fundeb_principal(df):  
     """
     Processa o DataFrame filtrando os dados específicos para VPA.
@@ -18,7 +22,7 @@ def d2_1_vpa_fundeb_principal(df):
         return "Dado Divergente"
 
     # Verificar se a coluna 'valor' existe no DataFrame filtrado
-    if 'valor' not in filtered_df.columns:
+    if not pd.api.types.is_numeric_dtype(filtered_df['valor']):
         return "Dado Divergente"
 
     # Verificar se algum valor na coluna 'valor' é maior que zero

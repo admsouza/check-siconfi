@@ -1,25 +1,14 @@
-import requests
 import pandas as pd
-from ...apis.urls import API_DCA  # Verifique se o caminho está correto
 
-API_URL = API_DCA
+# DCA-Anexo I-D
+def d2_5_desp_patronal_empenhada(df):
 
-def desp_patronal_empenhada(id_ente, an_exercicio):
-    url = f"{API_URL}?an_exercicio={an_exercicio}&id_ente={id_ente}&no_anexo=DCA-Anexo I-D"
-    response = requests.get(url)
-    
-    if response.status_code == 200:
-        data = response.json().get('items', [])
-        return process_data(data)
-    else:
-        return "Dado Divergente"
+    if df.empty:
+            return "Dado Divergente"
 
-def process_data(data):
-    if not data:
-        return "Dado Divergente"
-
-    # Converte os dados para um DataFrame
-    df = pd.DataFrame(data)
+    # Verifica se a coluna 'conta' existe no DataFrame
+    if 'conta' not in df.columns:
+        return "Dado Divergente"  # Retorna "Dado Divergente" se a coluna não existir
 
     # Verifica se as colunas 'coluna' e 'conta' existem
     if 'coluna' not in df.columns or 'conta' not in df.columns:
@@ -40,7 +29,7 @@ def process_data(data):
         return "Dado Divergente"
 
     # Verifica se a coluna 'valor' existe no DataFrame filtrado
-    if 'valor' not in filtered_df.columns:
+    if not pd.api.types.is_numeric_dtype(filtered_df['valor']):
         return "Dado Divergente"
 
     # Verifica se algum valor é maior que zero

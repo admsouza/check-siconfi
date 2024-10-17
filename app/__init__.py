@@ -5,12 +5,17 @@ from app.routes.card_dimension import card_dimension_bp
 from app.routes.dimensionii import dimensionii_bp
 from app.routes.dimensioniii import dimensioniii_bp
 from app.routes.dimensioniv import dimensioniv_bp
+from dotenv import load_dotenv
+import os
 
 def create_app():
+
+    load_dotenv()
+
     app = Flask(__name__)
 
     # Defina uma chave secreta para a aplicação
-    app.secret_key = 'ajsdh7sd9as0df8asd8&@#asdfa789sdfas'
+    app.secret_key = os.getenv('SECRET_KEY')
 
     # Configuração de logging para imprimir todas as mensagens no terminal
     logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
