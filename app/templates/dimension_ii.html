@@ -9,9 +9,16 @@
 </head>
 <body class="bg-light mt-5 ">
     <div class="container mt-4 ">
+        <h3 class=" font-weight-bold " id="resultado">Carregando...</h3>
         <div class="cidade">
-            <h3 class=" font-weight-bold " id="resultado">Carregando...</h3>
-        </div>
+                 <div>
+                    <p class="card-text">Realizadas: {{ total_itens }}</p>
+                    </div> 
+                <div>
+                    <strong class="card-text">Consistente: {{ percentual_consistente }}</strong>
+                </div>
+                    <strong class="card-text">Divergente: {{ percentual_divergente }}</strong>
+         </div>
       
         <!-- Botões para voltar, centralizados -->
         <div class="text-center mb-5">

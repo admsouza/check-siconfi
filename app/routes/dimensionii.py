@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from concurrent.futures import ThreadPoolExecutor
+from ..dimensao_II.dca.percent_valid import calcular_percentual
 
 from ..dimensao_II.dca.anexos.dca_anexo_i_hi import(
     get_dca_i_hi, 
@@ -47,17 +48,48 @@ def dimensionii():
         anexo_ie = get_api_ie.result()
 
     # Processa os resultados das validações conforme cada anexo
-    results_d2 = {
-        'd2_01': d2_1_vpa_fundeb_principal(anexo_i_hi),
-        'd2_02': d2_2_vpd_fundeb_principal(anexo_i_hi),
-        'd2_03': d2_3_deducoes_fundeb(anexo_ic),
-        'd2_04': d2_4_receitas_fundeb(anexo_ic),
-        'd2_05': d2_5_desp_patronal_empenhada(anexo_id),
-        'd2_06': d2_6_desp_pessoal_empenhada(anexo_id),
-        'd2_07': d2_7_desp_custeio_empenhada(anexo_id),
-        'd2_08': d2_8_desp_por_funcao(anexo_ie),
-        'd2_10': d2_10_receitas_outros_entes(anexo_ic),
-    }
+    d2_01 = d2_1_vpa_fundeb_principal(anexo_i_hi)
+    d2_02 = d2_2_vpd_fundeb_principal(anexo_i_hi)
+    d2_03 = d2_3_deducoes_fundeb(anexo_ic)
+    d2_04 = d2_4_receitas_fundeb(anexo_ic)
+    d2_05 = d2_5_desp_patronal_empenhada(anexo_id)
+    d2_06 = d2_6_desp_pessoal_empenhada(anexo_id)
+    d2_07 = d2_7_desp_custeio_empenhada(anexo_id)
+    d2_08 = d2_8_desp_por_funcao(anexo_ie)
+    d2_10 = d2_10_receitas_outros_entes(anexo_ic)
 
-    # Renderiza o template com os resultados
-    return render_template('dimension_ii.html', **results_d2)
+    # Calcula os percentuais de 'Dado Consistente' e 'Dado Divergente'
+    percentuais = calcular_percentual({
+        'd2_01': d2_01,
+        'd2_02': d2_02,
+        'd2_03': d2_03,
+        'd2_04': d2_04,
+        'd2_05': d2_05,
+        'd2_06': d2_06,
+        'd2_07': d2_07,
+        'd2_08': d2_08,
+        'd2_10': d2_10
+    })
+
+    # Formata os percentuais sem casas decimais e adiciona o símbolo de '%'
+    percentual_consistente = f"{int(percentuais['Percentual Consistente'])}%"
+    percentual_divergente = f"{int(percentuais['Percentual Divergente'])}%"
+    total_percentual = f"{int(percentuais['Total Percentual'])}%"  # Total como 100%
+
+
+    # Renderiza o template com os resultados e os percentuais
+    return render_template(
+        'dimension_ii.html',
+        d2_01=d2_01,
+        d2_02=d2_02,
+        d2_03=d2_03,
+        d2_04=d2_04,
+        d2_05=d2_05,
+        d2_06=d2_06,
+        d2_07=d2_07,
+        d2_08=d2_08,
+        d2_10=d2_10,
+        total_itens=total_percentual,
+        percentual_consistente=percentual_consistente, 
+        percentual_divergente=percentual_divergente
+    )
